@@ -6,7 +6,7 @@ const Forms = () => {
   const [allErrors, setAllErrors] = useState({});
   const [isVisible, setIsVisible] = useState(false);
   const [type, setType] = useState("password");
-
+  //state to store all form data
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -80,7 +80,7 @@ const Forms = () => {
     { name: "Oslo", country_code: 47 }, // Norway
     { name: "Auckland", country_code: 64 }, // New Zealand
   ];
-
+  //validation for each required field
   const validateForm = () => {
     const errors = {};
 
@@ -134,6 +134,7 @@ const Forms = () => {
     return errors;
   };
 
+  //to toggle visibility of password
   useEffect(() => {
     setType(isVisible ? "text" : "password");
   }, [isVisible]);
@@ -146,9 +147,10 @@ const Forms = () => {
     const result = Object.values(errors).every((x) => x === "");
     if (result) {
       console.log("successful");
-      navigate("/profile");
+      navigate("/profile", { state: { formData } }); //navigate on successful submission
     }
   };
+
   return (
     <div className="w-full min-h-screen pb-9 flex items-center  bg-[#3c3270c2]  flex-col pt-8 text-[#2B2B52] tracking-wider font-sans">
       <h1 className="text-3xl text-center capitalize mb-8 text-[#EAF0F1]">
@@ -427,7 +429,7 @@ const Forms = () => {
           <button
             className="py-2  bg-[#3c3270c2]  cursor-pointer w-1/3 text-white rounded-md hover:bg-[#3c3270f8] duration-300 text-lg tracking-wider mx-auto mt-8 shadow-md hover:shadow-white/30"
             type="submit"
-            disabled={!validateForm()}
+            disabled={!validateForm()} //submission disabled until form is validated.
           >
             Update Profile
           </button>
