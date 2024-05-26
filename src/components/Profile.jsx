@@ -23,8 +23,9 @@ const Profile = () => {
   }
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-[#8B78E6]">
-      <div className="flex flex-col items-center  text-start text-xl py-10 w-1/2 mx-auto tracking-wider bg-white/90 text-gray-900 rounded-lg shadow-md shadow-white/55">
-        <h1 className="text-4xl mb-10">Profile Details</h1>
+      <div className="flex flex-col items-center  text-start text-xl py-10 w-1/2 mx-auto tracking-wider bg-white/90 text-gray-900 rounded-lg shadow-md shadow-white/55 font-semibold">
+        <h1 className="text-4xl mb-2">Profile Details</h1>
+        <div className="w-2/3 mx-auto py-[1px] bg-gray-900 mb-8"></div>
         <p className="mb-2">
           Full Name: {formData.firstName}&nbsp;{formData.lastName}
         </p>
