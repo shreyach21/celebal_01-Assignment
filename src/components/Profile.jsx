@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { FaArrowLeft } from "react-icons/fa";
 const Profile = () => {
   const location = useLocation();
   const { formData } = location.state || {};
@@ -12,10 +12,13 @@ const Profile = () => {
         <p className="text-xl text-center">No data found!</p>
         <div className="text-center mt-10 ">
           <button
-            className="px-6 py-2 text-lg bg-[#6b4ff4] cursor-pointer hover:bg-[#332384b2] duration-300 rounded-md w-1/4"
+            className="px-6 py-2 text-lg bg-[#332384eb] cursor-pointer hover:bg-[#332384b2] duration-500 rounded-md w-1/4 text-white hover:scale-x-105"
             onClick={() => navigate("/")}
           >
-            Complete your profile
+            <div className="flex justify-center items-center">
+              <FaArrowLeft className="mr-5" />
+              <span className="capitalize">Complete your profile</span>
+            </div>
           </button>
         </div>
       </div>
