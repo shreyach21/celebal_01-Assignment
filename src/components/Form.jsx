@@ -323,25 +323,6 @@ const Forms = () => {
         </div>
         <div className="md:flex justify-between mt-6">
           <div className="md:w-[30%] sm:w-[90%]">
-            <label htmlFor="code" className="text-md capitalize font-medium">
-              Country Code :&nbsp;
-            </label>
-            <input
-              type="number"
-              name="code"
-              id="code"
-              value={formData.countryCode}
-              placeholder="Enter country code"
-              onChange={(e) =>
-                setFormData({ ...formData, countryCode: e.target.value })
-              }
-              className=" py-1 w-full rounded-md pl-2 focus:outline-none text-gray-500 mt-2"
-            />
-            {allErrors.countryCode && (
-              <p className="text-red-500 text-sm">{allErrors.countryCode}</p>
-            )}
-          </div>
-          <div className="md:w-[30%] sm:w-[90%]">
             <label htmlFor="country" className="text-md capitalize font-medium">
               Country :&nbsp;
             </label>
@@ -412,6 +393,26 @@ const Forms = () => {
             </select>
             {allErrors.city && (
               <p className="text-red-500 text-sm">{allErrors.city}</p>
+            )}
+          </div>
+          <div className="md:w-[30%] sm:w-[90%]">
+            <label htmlFor="code" className="text-md capitalize font-medium">
+              Country Code :&nbsp;
+            </label>
+            <input
+              type="number"
+              name="code"
+              id="code"
+              value={formData.countryCode}
+              placeholder="Enter country code"
+              // onChange={(e) =>
+              //   setFormData({ ...formData, countryCode: e.target.value })
+              // }
+              disabled
+              className=" py-1 w-full rounded-md pl-2 focus:outline-none text-gray-500 mt-2"
+            />
+            {allErrors.countryCode && (
+              <p className="text-red-500 text-sm">{allErrors.countryCode}</p>
             )}
           </div>
         </div>
