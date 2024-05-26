@@ -2,13 +2,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-const Form = () => {
+const Forms = () => {
   const [allErrors, setAllErrors] = useState({});
   const [isVisible, setIsVisible] = useState(false);
   const [type, setType] = useState("password");
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-  const [countryCode, setCountryCode] = useState(0);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -82,47 +80,25 @@ const Form = () => {
     { name: "Oslo", country_code: 47 }, // Norway
     { name: "Auckland", country_code: 64 }, // New Zealand
   ];
-  const validateCity = () => {
-    const city = cities.find((city) => city.name === selectedCity);
-    return city[0].code === selectedCountry.code;
-  };
-
-  //   useEffect(() => {
-  //     const country = countries.filter((country) => country.code === countryCode);
-  //     if (country) setSelectedCountry(country[0].name);
-  //   }, [countryCode]);
-  useEffect(() => {
-    const country = countries.find(
-      (country) => country.code === parseInt(countryCode)
-    );
-    if (country && country.name !== selectedCountry) {
-      setSelectedCountry(country.name);
-    }
-  }, [countryCode, selectedCountry, countries]);
-
-  //   useEffect(() => {
-  //     if (selectedCountry) {
-  //       setCountryCode(selectedCountry.code);
-  //     }
-  //   }, [selectedCountry]);
 
   const validateForm = () => {
     const errors = {};
+
     errors.firstName = formData.firstName
       ? /^[A-Za-z]{3,15}$/.test(formData.firstName)
         ? ""
         : "First Name must be between 3 and 15 letters with no digits, special characters, or spaces."
       : "First Name is required!";
     errors.lastName = formData.lastName
-      ? /^[A-Za-z\s]{3,30}$/(formData.lastName)
+      ? /^[A-Za-z\s]{3,30}$/.test(formData.lastName)
         ? ""
         : "Last Name must be between 3 and 30 letters with no digits or special characters."
       : "Last Name is required!";
     errors.username = formData.username
       ? /^[A-Za-z0-9#@_]+$/.test(formData.username)
-        ? formData.username.length !== 10
-          ? "must be exactly 10 characters!"
-          : ""
+        ? formData.username.length === 10
+          ? ""
+          : "Username must be exactly 10 characters!"
         : "Username can only contain letters, numbers, and @"
       : "Username is required!";
     errors.email = formData.email
@@ -131,55 +107,50 @@ const Form = () => {
         : "Invalid email given!"
       : "Email is required!";
     errors.password = formData.password
-      ? /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+      ? /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/.test(
           formData.password
         )
         ? ""
-        : "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character."
+        : "Password must be 8 to 12 characters long and include an uppercase letter, a lowercase letter, a number, and a special character."
       : "Password is required!";
-    errors.phoneNo = formData.phone
+    errors.phone = formData.phone
       ? /^\d{10}$/.test(formData.phone)
         ? ""
         : "Phone Number must be a valid 10-digit number."
       : "Phone Number is required!";
     errors.country = formData.country ? "" : "Country is required!";
-    errors.city = formData.city
-      ? validateCity()
-        ? ""
-        : "City must belong to your country "
-      : "City is required!";
+    errors.city = formData.city ? "" : "City is required!";
     errors.panNo = formData.pan
       ? /[A-Z]{5}[0-9]{4}[A-Z]{1}/.test(formData.pan)
         ? ""
         : "Invalid PAN Number!"
       : "Pan Number is required!";
     errors.aadharNo = formData.aadhar
-      ? /^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$”/.test(formData.aadhar)
+      ? /^[2-9]{1}[0-9]{3}\s[0-9]{4}\s[0-9]{4}$/.test(formData.aadhar)
         ? ""
         : "Invalid Aadhar Number!"
       : "Aadhar Number is required!";
-    setAllErrors(errors);
-    return Object.values(errors).every((x) => x === "");
+    console.log("values: ", errors);
+    return errors;
   };
 
   useEffect(() => {
-    if (isVisible) {
-      setType("text");
-    } else {
-      setType("password");
-    }
-    console.log("Visibility: ", isVisible);
+    setType(isVisible ? "text" : "password");
   }, [isVisible]);
 
   const navigate = useNavigate();
   const handleSubmit = (e) => {
-    if (e) e.preventDefault();
-    if (validateForm()) navigate("/profile");
+    e.preventDefault();
+    const errors = validateForm();
+    setAllErrors({ ...errors });
+    const result = Object.values(errors).every((x) => x === "");
+    if (result) {
+      console.log("successful");
+      navigate("/profile");
+    }
   };
   return (
-    <div className="w-full min-h-screen flex items-center  bg-[#3c3270c2]  flex-col pt-8 text-[#2B2B52] tracking-wider font-sans">
-      {/* bg-[#4C4B4B] */}
-      {/* #8B78E6 */}
+    <div className="w-full min-h-screen pb-9 flex items-center  bg-[#3c3270c2]  flex-col pt-8 text-[#2B2B52] tracking-wider font-sans">
       <h1 className="text-3xl text-center capitalize mb-8 text-[#EAF0F1]">
         Complete your profile
       </h1>
@@ -197,6 +168,10 @@ const Form = () => {
               name="name"
               id="name"
               placeholder="Enter first name"
+              value={formData.firstName}
+              onChange={(e) =>
+                setFormData({ ...formData, firstName: e.target.value })
+              }
               className=" py-1 w-full rounded-md pl-2 focus:outline-none text-gray-500 mt-2"
             />
             {allErrors.firstName && (
@@ -211,6 +186,10 @@ const Form = () => {
               type="text"
               name="surname"
               id="surname"
+              value={formData.lastName}
+              onChange={(e) =>
+                setFormData({ ...formData, lastName: e.target.value })
+              }
               placeholder="Enter second name"
               className=" py-1 w-full rounded-md pl-2 focus:outline-none text-gray-500 mt-2"
             />
@@ -229,6 +208,10 @@ const Form = () => {
               name="email"
               id="email"
               placeholder="Enter email"
+              value={formData.email.trim()}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value.trim() })
+              }
               className=" py-1 w-full rounded-md pl-2 focus:outline-none text-gray-500 mt-2"
             />
             {allErrors.email && (
@@ -244,6 +227,10 @@ const Form = () => {
               name="phone"
               id="phone"
               placeholder="Enter phone no."
+              value={formData.phone}
+              onChange={(e) =>
+                setFormData({ ...formData, phone: e.target.value })
+              }
               className=" py-1 w-full rounded-md pl-2 focus:outline-none text-gray-500 mt-2"
             />
             {allErrors.phoneNo && (
@@ -263,6 +250,10 @@ const Form = () => {
               type="text"
               name="username"
               id="username"
+              value={formData.username}
+              onChange={(e) =>
+                setFormData({ ...formData, username: e.target.value })
+              }
               placeholder="Enter username..."
               className=" py-1 w-full rounded-md pl-2 focus:outline-none text-gray-500 mt-2"
             />
@@ -282,6 +273,10 @@ const Form = () => {
                 type={type}
                 name="password"
                 id="password"
+                value={formData.password}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
                 placeholder="Enter password..."
                 className=" py-1 w-full rounded-md pl-2 focus:outline-none text-gray-500 mt-2"
               />
@@ -306,9 +301,11 @@ const Form = () => {
               type="number"
               name="code"
               id="code"
-              value={countryCode}
+              value={formData.countryCode}
               placeholder="Enter country code"
-              onChange={(e) => setCountryCode(e.target.value)}
+              onChange={(e) =>
+                setFormData({ ...formData, countryCode: e.target.value })
+              }
               className=" py-1 w-full rounded-md pl-2 focus:outline-none text-gray-500 mt-2"
             />
           </div>
@@ -321,8 +318,17 @@ const Form = () => {
               id="country"
               className="py-1 w-full rounded-md pl-2 focus:outline-none
                  text-gray-500 mt-2"
-              value={selectedCountry}
-              onChange={(e) => setSelectedCountry(e.target.value)}
+              value={formData.country}
+              onChange={(e) => {
+                const country = countries.find(
+                  (country) => country.name === e.target.value
+                );
+                setFormData({
+                  ...formData,
+                  country: country.name,
+                  countryCode: country.code,
+                });
+              }}
             >
               <option value="" disabled>
                 Select Country
@@ -346,8 +352,22 @@ const Form = () => {
               id="city"
               className=" py-1 w-full rounded-md pl-2
               focus:outline-none text-gray-500 mt-2"
-              value={selectedCity}
-              onChange={(e) => setSelectedCity(e.target.value)}
+              value={formData.city}
+              onChange={(e) => {
+                const city = cities.find(
+                  (city) => city.name === e.target.value
+                );
+                const country = countries.find(
+                  (country) => country.code === city.country_code
+                );
+                setFormData({
+                  ...formData,
+                  city: city.name,
+                  countryCode: city.country_code,
+                  //   country:country.code,
+                  country: country.name,
+                });
+              }}
             >
               <option value="" disabled>
                 Select City
@@ -373,6 +393,10 @@ const Form = () => {
               name="pan"
               id="pan"
               placeholder="(e.g., ABCDE1234F)"
+              value={formData.pan}
+              onChange={(e) =>
+                setFormData({ ...formData, pan: e.target.value })
+              }
               className=" py-1 w-full rounded-md pl-2 focus:outline-none text-gray-500 mt-2"
             />
             {allErrors.panNo && (
@@ -387,6 +411,10 @@ const Form = () => {
               type="text"
               name="aadhar"
               id="aadhar"
+              value={formData.aadhar}
+              onChange={(e) =>
+                setFormData({ ...formData, aadhar: e.target.value })
+              }
               placeholder="(e.g., 1234 5678 9012)"
               className=" py-1 w-full rounded-md pl-2 focus:outline-none text-gray-500 mt-2"
             />
@@ -395,19 +423,18 @@ const Form = () => {
             )}
           </div>
         </div>
-        {/* <div className="text-center mt-8"> */}
-        <button
-          className="py-2  bg-[#3c3270c2]  cursor-pointer w-1/3 text-white rounded-md hover:bg-[#3c3270f8] duration-300 text-lg tracking-wider mx-auto mt-8"
-          type="submit"
-          disabled={!validateForm()}
-        >
-          {/* bg-[#4C4B4B] */}
-          Update Profile
-        </button>
-        {/* </div> */}
+        <div className="text-center mt-8">
+          <button
+            className="py-2  bg-[#3c3270c2]  cursor-pointer w-1/3 text-white rounded-md hover:bg-[#3c3270f8] duration-300 text-lg tracking-wider mx-auto mt-8 shadow-md hover:shadow-white/30"
+            type="submit"
+            disabled={!validateForm()}
+          >
+            Update Profile
+          </button>
+        </div>
       </form>
     </div>
   );
 };
 
-export default Form;
+export default Forms;

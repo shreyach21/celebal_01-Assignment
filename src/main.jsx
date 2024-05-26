@@ -18,16 +18,16 @@ const router = createBrowserRouter(
     </Route>
   )
 
-  // [
-  //   {
-  //     path: "/",
-  //     element: <App />,
-  //   },
-  //   {
-  //     path: "/profile",
-  //     element: <Profile />,
-  //   },
-  // ]
+  //   // [
+  //   //   {
+  //   //     path: "/",
+  //   //     element: <App />,
+  //   //   },
+  //   //   {
+  //   //     path: "/profile",
+  //   //     element: <Profile />,
+  //   //   },
+  //   // ]
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
