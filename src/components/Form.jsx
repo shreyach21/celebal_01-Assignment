@@ -161,8 +161,8 @@ const Forms = () => {
         onSubmit={handleSubmit}
       >
         <div className="md:flex justify-between mt-2">
-          <div className=" lg:w-[45%] md:w-[35%] sm:w-[90%]">
-            <label htmlFor="name" className="text-md capitalize font-medium">
+          <div className="md:w-[45%] sm:w-[90%]">
+            <label htmlFor="name" className="text-md capitalize font-medium ">
               First Name :&nbsp;
             </label>
             <input
@@ -180,7 +180,7 @@ const Forms = () => {
               <p className="text-red-500 text-sm">{allErrors.firstName}</p>
             )}
           </div>
-          <div className="lg:w-[45%] md:w-[35%] sm:w-[90%]">
+          <div className="md:w-[45%] sm:w-[90%]">
             <label htmlFor="surname" className="text-md capitalize font-medium">
               Last Name :&nbsp;
             </label>
@@ -201,7 +201,7 @@ const Forms = () => {
           </div>
         </div>
         <div className="md:flex justify-between mt-6">
-          <div className="lg:w-[45%] md:w-[35%] sm:w-[90%]">
+          <div className="md:w-[45%] sm:w-[90%]">
             <label htmlFor="email" className="text-md capitalize font-medium">
               Email :&nbsp;
             </label>
@@ -220,7 +220,7 @@ const Forms = () => {
               <p className="text-red-500 text-sm">{allErrors.email}</p>
             )}
           </div>
-          <div className="lg:w-[45%] md:w-[35%] sm:w-[90%]">
+          <div className="md:w-[45%] sm:w-[90%]">
             <label htmlFor="phone" className="text-md capitalize font-medium">
               Contact No. :&nbsp;
             </label>
@@ -241,7 +241,7 @@ const Forms = () => {
           </div>
         </div>
         <div className="md:flex justify-between mt-6">
-          <div className=" lg:w-[45%] md:w-[35%] sm:w-[90%]">
+          <div className=" md:w-[45%] sm:w-[90%]">
             <label
               htmlFor="username"
               className="text-md capitalize font-medium"
@@ -263,7 +263,7 @@ const Forms = () => {
               <p className="text-red-500 text-sm">{allErrors.username}</p>
             )}
           </div>
-          <div className="lg:w-[45%] md:w-[35%] sm:w-[90%]">
+          <div className="md:w-[45%] sm:w-[90%]">
             <label
               htmlFor="password"
               className="text-md capitalize font-medium"
@@ -295,7 +295,7 @@ const Forms = () => {
           </div>
         </div>
         <div className="md:flex justify-between mt-6">
-          <div className="md:w-[30%] sm:w-[80%]">
+          <div className="md:w-[30%] sm:w-[90%]">
             <label htmlFor="code" className="text-md capitalize font-medium">
               Country Code :&nbsp;
             </label>
@@ -311,7 +311,7 @@ const Forms = () => {
               className=" py-1 w-full rounded-md pl-2 focus:outline-none text-gray-500 mt-2"
             />
           </div>
-          <div className="md:w-[30%] sm:w-[80%]">
+          <div className="md:w-[30%] sm:w-[90%]">
             <label htmlFor="country" className="text-md capitalize font-medium">
               Country :&nbsp;
             </label>
@@ -345,7 +345,7 @@ const Forms = () => {
               <p className="text-red-500 text-sm">{allErrors.country}</p>
             )}
           </div>
-          <div className="md:w-[30%] sm:w-[80%]">
+          <div className="md:w-[30%] sm:w-[90%]">
             <label htmlFor="city" className="text-md capitalize font-medium">
               City :&nbsp;
             </label>
@@ -386,7 +386,7 @@ const Forms = () => {
           </div>
         </div>
         <div className="md:flex justify-between mt-6">
-          <div className=" lg:w-[45%] md:w-[35%] sm:w-[90%]">
+          <div className=" md:w-[45%] sm:w-[90%]">
             <label htmlFor="pan" className="text-md capitalize font-medium">
               PAN Number :&nbsp;
             </label>
@@ -405,7 +405,7 @@ const Forms = () => {
               <p className="text-red-500 text-sm">{allErrors.panNo}</p>
             )}
           </div>
-          <div className="lg:w-[45%] md:w-[35%] sm:w-[90%]">
+          <div className="md:w-[45%] sm:w-[90%]">
             <label htmlFor="aadhar" className="text-md capitalize font-medium">
               Aadhar Number :&nbsp;
             </label>
@@ -427,7 +427,7 @@ const Forms = () => {
         </div>
         <div className="text-center mt-8">
           <button
-            className="py-2  bg-[#3c3270c2]  cursor-pointer w-1/3 text-white rounded-md hover:bg-[#3c3270f8] duration-300 text-lg tracking-wider mx-auto mt-8 shadow-md hover:shadow-white/30"
+            className="py-2  bg-[#3c3270c2] cursor-pointer md:w-1/3 text-white rounded-md hover:bg-[#3c3270f8] duration-300 text-lg tracking-wider mx-auto mt-8 shadow-md  hover:shadow-white/30 px-3"
             type="submit"
             disabled={!validateForm()} //submission disabled until form is validated.
           >

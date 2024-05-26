@@ -8,14 +8,14 @@ const Profile = () => {
 
   if (!formData)
     return (
-      <div className="pt-10">
-        <p className="text-xl text-center">No data found!</p>
-        <div className="text-center mt-10 ">
+      <div className="flex flex-col justify-center items-center min-h-screen w-full">
+        <p className="text-xl text-center w-full">No data found!</p>
+        <div className="text-center mt-4 w-full">
           <button
-            className="px-6 py-2 text-lg bg-[#332384eb] cursor-pointer hover:bg-[#332384b2] duration-500 rounded-md w-1/4 text-white hover:scale-x-105"
+            className="px-6 py-2 text-lg bg-[#332384eb] cursor-pointer hover:bg-[#332384b2] duration-500 rounded-md sm:w-2/3  text-white hover:scale-x-105 md:w-1/2"
             onClick={() => navigate("/")}
           >
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center w-full">
               <FaArrowLeft className="mr-5" />
               <span className="capitalize">Complete your profile</span>
             </div>
