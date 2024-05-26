@@ -29,7 +29,7 @@ const Profile = () => {
       <div className="flex flex-col items-center text-start text-xl py-10 w-3/5 mx-auto tracking-wider bg-white/90 text-gray-900 rounded-lg shadow-md shadow-white/55 font-semibold">
         <h1 className="text-4xl mb-8">Profile Details</h1>
         <div className="w-full overflow-x-auto">
-          <table className="min-w-full table-auto bg-white">
+          <table className="min-w-full table-auto bg-white ">
             <tbody>
               <tr className="border-b">
                 <td className="px-4 py-2 font-semibold">Full Name</td>
