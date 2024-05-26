@@ -80,6 +80,24 @@ const Forms = () => {
     { name: "Oslo", country_code: 47 }, // Norway
     { name: "Auckland", country_code: 64 }, // New Zealand
   ];
+
+  //validation for country code
+  const validateCode = (code) => {
+    const country = countries.find(
+      (country) => country.name === formData.country
+    );
+    return country.code === code;
+  };
+
+  //validation for city
+  const validateCity = (city) => {
+    const cityname = cities.find((name) => name.name === city);
+    const country = countries.find(
+      (country) => country.name === formData.country
+    );
+    return country.code === cityname.country_code;
+  };
+
   //validation for each required field
   const validateForm = () => {
     const errors = {};
@@ -118,8 +136,17 @@ const Forms = () => {
         ? ""
         : "Phone Number must be a valid 10-digit number."
       : "Phone Number is required!";
+    errors.countryCode = formData.countryCode
+      ? validateCode(formData.countryCode)
+        ? ""
+        : "Incorrect code number!"
+      : "country code is required!";
     errors.country = formData.country ? "" : "Country is required!";
-    errors.city = formData.city ? "" : "City is required!";
+    errors.city = formData.city
+      ? validateCity(formData.city)
+        ? ""
+        : "City must belong to country!"
+      : "City is required!";
     errors.panNo = formData.pan
       ? /[A-Z]{5}[0-9]{4}[A-Z]{1}/.test(formData.pan)
         ? ""
@@ -310,6 +337,9 @@ const Forms = () => {
               }
               className=" py-1 w-full rounded-md pl-2 focus:outline-none text-gray-500 mt-2"
             />
+            {allErrors.countryCode && (
+              <p className="text-red-500 text-sm">{allErrors.countryCode}</p>
+            )}
           </div>
           <div className="md:w-[30%] sm:w-[90%]">
             <label htmlFor="country" className="text-md capitalize font-medium">
