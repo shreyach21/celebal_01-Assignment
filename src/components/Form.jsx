@@ -170,9 +170,9 @@ const Forms = () => {
               name="name"
               id="name"
               placeholder="Enter first name"
-              value={formData.firstName}
+              value={formData.firstName.trim()}
               onChange={(e) =>
-                setFormData({ ...formData, firstName: e.target.value })
+                setFormData({ ...formData, firstName: e.target.value.trim() })
               }
               className=" py-1 w-full rounded-md pl-2 focus:outline-none text-gray-500 mt-2"
             />
