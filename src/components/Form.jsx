@@ -131,7 +131,7 @@ const Forms = () => {
         ? ""
         : "Password must be 8 to 12 characters long and include an uppercase letter, a lowercase letter, a number, and a special character."
       : "Password is required!";
-    errors.phone = formData.phone
+    errors.phoneNo = formData.phone
       ? /^\d{10}$/.test(formData.phone)
         ? ""
         : "Phone Number must be a valid 10-digit number."
